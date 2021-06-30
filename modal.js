@@ -13,10 +13,8 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const close = document.querySelector(".close");
 const formGlobal = document.getElementById("formGlobal");
-
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
@@ -33,16 +31,6 @@ function closeModal() {
 /*******************************TRAITEMENT DES INPUTS **********************/
 
 let erreur;
-
-//TEST DE LA LONGUEUR DU CHAMP NOM ET PRENOM
-function testFirstAndLast(input) {
-  if (input.length < 2) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
 // INJECTION DES ATTRIBUTS EN CAS DE PROBLEME
 function setAtt(value) {
   value.parentElement.setAttribute("data-error", erreur);
@@ -55,6 +43,11 @@ function removeAtt(value) {
   value.parentElement.removeAttribute("data-error-visible");
 }
 
+//TEST DE LA LONGUEUR ET DE LA VALIDITÉE DU CHAMP NOM ET PRENOM
+function testFirstAndLast(input) {
+  return /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(input);
+}
+
 // FONCTION DE TEST DU PRENOM
 function testFirstName() {
   let first = document.getElementById("first");
@@ -62,7 +55,7 @@ function testFirstName() {
     removeAtt(first);
     return true;
   } else {
-    erreur = "veuillez entrer un prénom de 2 caractères minimum";
+    erreur = "veuillez entrer un prénom de 2 lettres minimum";
     setAtt(first);
     return false;
   }
@@ -76,7 +69,7 @@ function testLastName() {
     removeAtt(last);
     return true;
   } else {
-    erreur = "veuillez entrer un nom de 2 caractères minimum";
+    erreur = "veuillez entrer un nom de 2 lettres minimum";
     setAtt(last);
     return false;
   }
@@ -139,6 +132,7 @@ function tournament() {
 let location1 = document.getElementById("location1");
 let ville = document.getElementsByName("location");
 let numberOfTownChecked = 0;
+
 // compter le nb de ville sélectionnées
 
 function validateTownChecked() {
@@ -158,22 +152,24 @@ function validateTownChecked() {
   }
 }
 
-// CONDITIONS D'UTILISATION 
+// CONDITIONS D'UTILISATION
 
-function conditions(){
+function conditions() {
   let checkbox1 = document.getElementById("checkbox1");
-  if(checkbox1.checked){
+  if (checkbox1.checked) {
     removeAtt(checkbox1);
-    return true
-  }else{
-    erreur = "veuillez accepter les conditions d'utilisation "
+    return true;
+  } else {
+    erreur = "veuillez accepter les conditions d'utilisation ";
     setAtt(checkbox1);
-    return false
+    return false;
   }
 }
 
 // VALIDATION DU FORMULAIRE
-const valid = document.getElementById("valid");
+
+const valid = document.querySelector(".valid");
+
 formGlobal.addEventListener("submit", function (e) {
   //comptage du nb de ville sélectionnées
   for (let i = 0; i < ville.length; i++) {
@@ -191,9 +187,9 @@ formGlobal.addEventListener("submit", function (e) {
     validateTownChecked() &&
     conditions()
   ) {
-    
     closeModal();
-    valid.style.display="block";
+    valid.classList.remove("displayNone")
+    valid.classList.add("displayBlock")
     formGlobal.reset();
     e.preventDefault();
   } else {
@@ -204,23 +200,13 @@ formGlobal.addEventListener("submit", function (e) {
 
 // fermeture de la page de confirmation
 
+//Avec le boutton fermer
 let btnClose = document.getElementById("closeBtn");
-btnClose.addEventListener("click", function(){
-  valid.style.display = "none";
-})
-
-// // pourquoi le compte de formData est égale à 3
-
-// const parent = document.getElementById('formGlobal');
-// const child = document.getElementsByClassName("formData");
-// console.log(child[0])
-// console.log(child.length);
-
-// for( let i=0 ; i<child.length; i++){
-//   let removed = parent.removeChild(child[i]);
-//   console.log(child[i]);
-
-//   console.log(child.length);
-// }
-
-// console.log(child.length);
+btnClose.addEventListener("click", function () {
+  valid.classList.replace("displayBlock" , "displayNone")
+});
+ //Avec la croix
+let closeValid = document.querySelector('.closeValid')
+closeValid.addEventListener("click", function(){
+  valid.classList.replace("displayBlock" , "displayNone")
+});
