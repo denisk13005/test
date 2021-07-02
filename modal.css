@@ -132,15 +132,25 @@ main {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(26, 39, 156, 0.4);
+  /* background-color: rgba(26, 39, 156, 0.4); */
+  background-color: white;
 }
 
-.content {
+.bgroundBlock {
+  display: block;
+}
+.bgroundNone {
+  display: none;
+}
+.content,
+#container {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
-  animation-name: modalopen;
-  animation-duration: var(--modal-duration);
+  -webkit-animation-name: modalopen;
+          animation-name: modalopen;
+  -webkit-animation-duration: var(--modal-duration);
+          animation-duration: var(--modal-duration);
   background: #232323;
   border-radius: 10px;
   overflow: hidden;
@@ -537,7 +547,6 @@ footer {
     width: 100%;
   }
   .hero-img img {
-    
     border-radius: 10px;
     margin-top: 40px;
   }
@@ -647,6 +656,7 @@ footer {
     font-size: 40px;
     font-weight: bold;
     line-height: 1.7;
+    white-space: normal;
   }
 
   .hero-img img {
@@ -696,21 +706,7 @@ footer {
   }
 }
 /* validation page  */
-
-#container {
-  margin: 5% auto;
-  width: 100%;
-  max-width: 500px;
-  animation-name: modalopen;
-  animation-duration: var(--modal-duration);
-  background: #232323;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-  color: #fff;
-  padding-top: 10px;
-}
-
+  
 .valid p {
   padding: 275px 100px;
   text-align: center;
@@ -720,12 +716,17 @@ footer {
 .valid button {
   margin-bottom: 30px;
 }
+
+/*ajout de la classe sur la div valid lors de la validation du formulaire pour affichage de la page de validation*/
 .displayBlock {
   display: block;
 }
+/* ajout de la classe pour la fermeture de la page de validation*/
 .displayNone {
   display: none;
 }
+
+/*croix de la page de validation*/
 .closeValid {
   position: absolute;
   right: 15px;
@@ -752,7 +753,15 @@ footer {
   transform: rotate(-45deg);
 }
 
-
+@-webkit-keyframes modalopen {
+  from {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 @keyframes modalopen {
   from {
